@@ -43,6 +43,17 @@ var reporter = new ScreenShotReporter({
 
 If the given directory does not exists, it is created automatically as soon as a screenshot needs to be stored.
 
+### Include failed only (optional)
+If you want/need to take only screenshots of scenarios that didn't pass, set this option to true (it's false by default).
+
+```javascript
+new ScreenShotReporter({
+   baseDirectory: '/tmp/screenshots'
+   // Will only take screenshots after scenarios that didn't pass
+   includeFailedOnly: true;
+});
+```
+
 ### Path Builder (optional)
 The function passed as second argument to the constructor is used to build up paths for screenshot files:
 

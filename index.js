@@ -96,6 +96,7 @@ function ScreenshotReporter(options) {
 	this.metaDataBuilder = options.metaDataBuilder || defaultMetaDataBuilder;
 	this.takeScreenShotsForSkippedSpecs =
 		options.takeScreenShotsForSkippedSpecs || false;
+  this.includeFailedOnly = options.includeFailedOnly || false;
 }
 
 /** Function: reportSpecResults
@@ -114,6 +115,12 @@ function reportSpecResults(spec) {
 	if(!self.takeScreenShotsForSkippedSpecs && results.skipped) {
 		return;
 	}
+
+  // If we want to take screenshot only when spec failed and it passed
+  if (self.includeFailedOnly && jasmine.getEnv().currentSpec.results().passed()) {
+    // return now and don't take screenshot
+    return;
+  }
 
 	browser.takeScreenshot().then(function (png) {
 		browser.getCapabilities().then(function (capabilities) {
